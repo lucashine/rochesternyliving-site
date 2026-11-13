@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Client Reviews | Rochester NY Living</title>
+<meta name="description" content="What past clients say about working with Lucas Hine, and a place to leave your own review.">
+<link rel="canonical" href="https://rochesternyliving.com/reviews.html">
+<meta property="og:title" content="Client Reviews | Rochester NY Living">
+<meta property="og:description" content="What past clients say about working with Lucas Hine, and a place to leave your own review.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rochesternyliving.com/reviews.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Brand icons + share card. Files live in assets/img/. -->
+<link rel="icon" href="assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="assets/img/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<meta name="theme-color" content="#1f4437">
+<meta property="og:image" content="https://rochesternyliving.com/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://rochesternyliving.com/assets/img/og-image.jpg">
+<link rel="stylesheet" href="assets/style.css?v=20261112">
+
+<!-- Reviews-only styles. Kept here so this page is a single drop-in file.
+     Move to assets/style.css if a second page ever needs them.
+
+     Deliberately NOT included: schema.org AggregateRating markup. Google has
+     excluded self-serving reviews (testimonials a business hosts about itself)
+     from rating rich results since 2019, so the markup would add risk and
+     clutter for no snippet. Star ratings in search come from a Google
+     Business Profile, not from this page. -->
+<style>
+  .rv-hero-copy { max-width: 720px; }
+
+  /* ---------- rating summary ---------- */
+  .rv-summary {
+    background: var(--white); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 1.5rem 1.6rem; margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+  }
+  .rv-avg {
+    font-family: var(--serif); font-size: 3rem; font-weight: 600;
+    line-height: 1; color: var(--ink);
+  }
+  .rv-summary-meta { display: grid; gap: 0.3rem; }
+  .rv-count { font-size: 0.86rem; color: var(--ink-faint); margin: 0; }
+
+  /* Static star display: a copper row clipped to the score over a grey row. */
+  .rv-stars { position: relative; display: inline-block; line-height: 1; white-space: nowrap; }
+  .rv-stars-bg { color: #d8d2c7; }
+  .rv-stars-fg {
+    color: var(--copper); position: absolute; top: 0; left: 0;
+    overflow: hidden; white-space: nowrap;
+  }
+  .rv-stars span { font-size: 1.15rem; letter-spacing: 2px; }
+
+  /* ---------- review list ---------- */
+  .rv-list { display: grid; gap: 1.1rem; }
+  .rv-card {
+    background: var(--white); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 1.5rem 1.6rem;
+  }
+  .rv-card-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 1rem; flex-wrap: wrap; margin-bottom: 0.7rem;
+  }
+  .rv-name { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; margin: 0; }
+  .rv-meta { font-size: 0.8rem; color: var(--ink-faint); margin: 0.15rem 0 0; }
+  .rv-text { margin: 0; color: var(--ink-soft); }
+  .rv-tag {
+    display: inline-block; font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--paper-2); color: var(--ink-soft);
+    padding: 0.2rem 0.55rem; border-radius: 4px;
+  }
+
+  .rv-empty {
+    background: var(--paper-2); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 1.8rem;
+  }
+  .rv-empty p:last-child { margin-bottom: 0; }
+  .rv-source { font-size: 0.8rem; color: var(--ink-faint); margin: 0.6rem 0 0; }
+
+  /* ---------- the form panel ---------- */
+  .rv-panel {
+    background: var(--white); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 1.6rem;
+  }
+  @media (min-width: 900px) { .rv-panel { position: sticky; top: 96px; } }
+  .rv-panel h2 { font-size: 1.35rem; margin-bottom: 0.4rem; scroll-margin-top: 92px; }
+  .rv-panel-intro { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 1.4rem; }
+
+  /* ---------- star input ---------- */
+  .stars-field { border: 0; padding: 0; margin: 0; display: grid; gap: 0.35rem; }
+  .stars-field legend { font-size: 0.86rem; font-weight: 600; color: var(--ink-soft); padding: 0; }
+  /* DOM order is 5→1; row-reverse paints them 1→5 left to right, which lets the
+     sibling selector below fill every star to the left of the one hovered. */
+  .stars { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: 0.15rem; }
+  .stars input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .stars label {
+    font-size: 1.9rem; line-height: 1; color: #d8d2c7; cursor: pointer;
+    transition: color .12s ease; user-select: none;
+  }
+  .stars label:hover, .stars label:hover ~ label,
+  .stars input:checked ~ label { color: var(--copper); }
+  .stars input:focus-visible + label { outline: 2px solid var(--forest-2); outline-offset: 2px; border-radius: 4px; }
+  .stars-value { font-size: 0.8rem; color: var(--ink-faint); min-height: 1.2em; }
+
+  /* ---------- consent checkbox ---------- */
+  .check { display: flex; gap: 0.65rem; align-items: flex-start; }
+  .check input {
+    width: 1.1rem; height: 1.1rem; margin: 0.25rem 0 0; flex-shrink: 0;
+    accent-color: var(--forest);
+  }
+  .check label { font-size: 0.86rem; color: var(--ink-soft); line-height: 1.5; font-weight: 400; }
+
+  .rv-private {
+    background: var(--paper-2); border-radius: 8px;
+    padding: 1rem 1.1rem; display: grid; gap: 1.05rem;
+  }
+  .rv-private-head {
+    font-size: 0.76rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-faint); margin: 0;
+  }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/">
+      <img class="brand-mark" src="assets/img/logo-mark.png" alt="" width="44" height="44">
+      <span class="brand-text">
+        <span class="brand-name">Rochester NY Living</span>
+        <!-- NY 19 NYCRR 175.25 identification. Do not remove. -->
+        <span class="brand-broker">Lucas Hine &middot; Keller Williams Realty Gateway</span>
+      </span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav">Menu</button>
+    <nav class="nav" id="primary-nav">
+      <a href="/neighborhoods/">Towns</a>
+      <a href="/videos">Video</a>
+      <a href="/sell">Sell</a>
+      <a href="/reviews">Reviews</a>
+      <a href="/about">About</a>
+      <a class="ext" href="https://lucashine.kw.com" target="_blank" rel="noopener">Search Homes</a>
+      <a class="btn btn-primary" href="/contact">Get in touch</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<section class="hero hero-art">
+  <!-- .wrap rather than .narrow so the hero's left edge lines up with the review
+       cards below it. rv-hero-copy keeps the line length readable. -->
+  <div class="wrap">
+    <div class="rv-hero-copy">
+      <p class="eyebrow">Client reviews</p>
+      <h1>What it&rsquo;s actually like to work with me.</h1>
+      <p class="lead">These are from people who bought or sold a house with me. Nobody was
+      paid or given anything in exchange for a review, and I don&rsquo;t edit opinions.
+      The only things I remove are last names, addresses, and anything that would identify
+      someone&rsquo;s home.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="split">
+
+      <!-- ============ left: published reviews ============ -->
+      <div>
+        <div id="rv-summary"></div>
+        <div id="rv-list" class="rv-list"></div>
+      </div>
+
+      <!-- ============ right: submission form ============ -->
+      <div>
+        <div class="rv-panel">
+          <h2 id="write">Write a review</h2>
+          <p class="rv-panel-intro">If we worked together, I&rsquo;d be grateful for a few
+          sentences. It takes about two minutes.</p>
+
+          <form class="form" data-lead="review"
+                data-success="Thank you — that came through, and I read every one of these myself. I&rsquo;ll be in touch before anything goes on the site.">
+
+            <fieldset class="stars-field">
+              <legend>Your rating</legend>
+              <!-- DOM order 5→1 on purpose. See the CSS note above. -->
+              <div class="stars">
+                <input type="radio" id="star5" name="rating" value="5" required>
+                <label for="star5" title="5 stars" aria-label="5 stars">&#9733;</label>
+                <input type="radio" id="star4" name="rating" value="4">
+                <label for="star4" title="4 stars" aria-label="4 stars">&#9733;</label>
+                <input type="radio" id="star3" name="rating" value="3">
+                <label for="star3" title="3 stars" aria-label="3 stars">&#9733;</label>
+                <input type="radio" id="star2" name="rating" value="2">
+                <label for="star2" title="2 stars" aria-label="2 stars">&#9733;</label>
+                <input type="radio" id="star1" name="rating" value="1">
+                <label for="star1" title="1 star" aria-label="1 star">&#9733;</label>
+              </div>
+              <p class="stars-value" id="stars-value" aria-live="polite"></p>
+            </fieldset>
+
+            <div class="field">
+              <label for="r-text">Your review
+                <span class="hint">Not sure where to start? What were you trying to do, what
+                was the hardest part, and what did I do that actually helped.</span>
+              </label>
+              <textarea id="r-text" name="review" maxlength="1500" required></textarea>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="r-first">First name</label>
+                <input id="r-first" name="first_name" type="text" autocomplete="given-name" required>
+              </div>
+              <div class="field">
+                <label for="r-initial">Last initial
+                  <span class="hint">Just the one letter.</span>
+                </label>
+                <input id="r-initial" name="last_initial" type="text" maxlength="1" size="1"
+                       pattern="[A-Za-z]" required>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="r-role">We worked together as</label>
+                <select id="r-role" name="role" required>
+                  <option value="">Choose one</option>
+                  <option>Buyer</option>
+                  <option>Seller</option>
+                  <option>Buyer &amp; seller</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="r-town">Town or area
+                  <span class="hint">Optional. Town only &mdash; never your address.</span>
+                </label>
+                <input id="r-town" name="town" type="text">
+              </div>
+            </div>
+
+            <div class="rv-private">
+              <p class="rv-private-head">Just for me &mdash; never published</p>
+              <div class="field">
+                <label for="r-email">Email
+                  <span class="hint">So I can confirm it&rsquo;s really you and reply.</span>
+                </label>
+                <input id="r-email" name="email" type="email" autocomplete="email" required>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label for="r-phone">Phone <span class="hint">Optional.</span></label>
+                  <input id="r-phone" name="phone" type="tel" autocomplete="tel">
+                </div>
+                <div class="field">
+                  <label for="r-closed">Roughly when we closed</label>
+                  <input id="r-closed" name="closing_month" type="month">
+                </div>
+              </div>
+            </div>
+
+            <div class="check">
+              <input id="r-consent" name="consent" type="checkbox" value="yes" required>
+              <label for="r-consent">I&rsquo;m OK with this review being published on
+              rochesternyliving.com under my first name and last initial. I understand my
+              full name, address, email, and phone number will not be shown.</label>
+            </div>
+
+            <div class="hp" aria-hidden="true"><label>Leave this blank<input name="company" tabindex="-1" autocomplete="off"></label></div>
+            <div class="form-status" role="status" aria-live="polite"></div>
+            <div><button class="btn btn-primary" type="submit">Send my review</button></div>
+
+            <p class="form-note">Nothing is published automatically. I read every review before
+            it goes up, and if I ever need to shorten one for length I&rsquo;ll check with you
+            first. Change your mind later? Email
+            <a href="mailto:lucashine@kw.com">lucashine@kw.com</a> and I&rsquo;ll take it down.</p>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-mark" src="assets/img/logo-mark-light.png" alt="" width="38" height="38">
+        <h4>Rochester NY Living</h4>
+        <ul class="footer-links">
+          <li><a href="/neighborhoods/">Towns &amp; neighborhoods</a></li>
+          <li><a href="/videos">Video library</a></li>
+          <li><a href="/sell">Thinking of selling</a></li>
+          <li><a href="/reviews">Client reviews</a></li>
+          <li><a href="/about">About Lucas</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Search</h4>
+        <ul class="footer-links">
+          <li><a href="https://lucashine.kw.com" target="_blank" rel="noopener">Search homes for sale &#8599;</a></li>
+          <li><a href="https://www.youtube.com/@RochesterNYLiving" target="_blank" rel="noopener">YouTube channel &#8599;</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Reach me</h4>
+        <ul class="footer-links">
+          <li><a href="tel:+15857132055">(585) 713-2055</a></li>
+          <li><a href="mailto:lucashine@kw.com">lucashine@kw.com</a></li>
+        </ul>
+      </div>
+      <div>
+        <!-- NY 19 NYCRR 175.25 identification block. Required on EVERY page. -->
+        <h4>Licensed in New York</h4>
+        <p class="id-block">
+          <strong>Lucas Hine</strong><br>
+          Licensed Real Estate Salesperson<br>
+          License #10401293543<br>
+          <strong>Keller Williams Realty Gateway</strong><br>
+          1880 Rochester Road, Suite 200, Canandaigua, NY 14424
+        </p>
+      </div>
+    </div>
+
+    <!-- NY 19 NYCRR 175.29 — Fair Housing Notice, prominently displayed on every page. -->
+    <div class="fh-notice">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#b9cdc4" stroke-width="1.6" aria-hidden="true">
+        <path d="M3 10.5 12 4l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/>
+        <path d="M9 21v-6h6v6"/>
+      </svg>
+      <p style="margin:0">
+        <strong style="color:#fff">Equal Housing Opportunity.</strong>
+        New York State requires all real estate licensees to provide the
+        <a href="/fair-housing">New York State Fair Housing Notice</a> and their
+        <a href="/fair-housing#sop">Standardized Operating Procedure for prospective homebuyers</a>.
+        We do business in accordance with the Federal Fair Housing Act and the New York State Human Rights Law.
+      </p>
+    </div>
+
+    <div class="legal">
+      <p>&copy; 2026 Lucas Hine, Licensed Real Estate Salesperson, Keller Williams Realty Gateway. All rights reserved.</p>
+      <p>Reviews on this page are submitted by past clients and published with their permission.
+         No one was compensated for a review. Reviews reflect one client&rsquo;s experience with a
+         specific transaction and are not a representation about any property, its value, or its
+         future value, and are not a prediction of the result of any other transaction.</p>
+      <p>Property search is provided through my brokerage-hosted search site. This website does not display
+         Multiple Listing Service data directly. Information on this site is provided for general informational
+         purposes and is not a representation about any specific property, its value, or its future value.</p>
+    </div>
+  </div>
+</footer>
+<script src="assets/reviews-data.js?v=20261112"></script>
+<script src="assets/site.js?v=20261112"></script>
+<script>
+/* Renders the published reviews from assets/reviews-data.js.
+   No network call, no database — the data file IS the database. */
+(function () {
+  var reviews = Array.isArray(window.REVIEWS) ? window.REVIEWS : [];
+  var summaryEl = document.getElementById('rv-summary');
+  var listEl = document.getElementById('rv-list');
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function starRow(score) {
+    var pct = Math.max(0, Math.min(5, Number(score) || 0)) / 5 * 100;
+    return '<span class="rv-stars" role="img" aria-label="' +
+      (Math.round(score * 10) / 10) + ' out of 5 stars">' +
+      '<span class="rv-stars-bg">★★★★★</span>' +
+      '<span class="rv-stars-fg" style="width:' + pct + '%">★★★★★</span>' +
+      '</span>';
+  }
+
+  function monthName(ym) {
+    if (!ym) return '';
+    var parts = String(ym).split('-');
+    var d = new Date(Number(parts[0]), Number(parts[1]) - 1, 1);
+    if (isNaN(d)) return '';
+    return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  }
+
+  if (!reviews.length) {
+    summaryEl.innerHTML =
+      '<div class="rv-empty">' +
+      '<h2 style="margin-top:0">No reviews published yet.</h2>' +
+      '<p>I&rsquo;m in the middle of asking past clients for these, so this page is about to ' +
+      'fill up. If we worked together, the form is right there &mdash; you&rsquo;d be first.</p>' +
+      '<p>In the meantime, the fastest way to judge whether we&rsquo;d work well together is ' +
+      'to just <a href="/contact">talk to me</a>.</p>' +
+      '<p style="margin-bottom:0"><a class="btn btn-primary" href="#write">Write a review</a></p>' +
+      '</div>';
+    return;
+  }
+
+  var total = reviews.reduce(function (sum, r) { return sum + (Number(r.rating) || 0); }, 0);
+  var avg = total / reviews.length;
+
+  summaryEl.innerHTML =
+    '<div class="rv-summary">' +
+      '<div class="rv-avg">' + (Math.round(avg * 10) / 10).toFixed(1) + '</div>' +
+      '<div class="rv-summary-meta">' +
+        starRow(avg) +
+        '<p class="rv-count">Average of ' + reviews.length +
+        (reviews.length === 1 ? ' published review' : ' published reviews') +
+        ' &middot; <a href="#write">Add yours</a></p>' +
+      '</div>' +
+    '</div>';
+
+  listEl.innerHTML = reviews.map(function (r) {
+    var bits = [];
+    if (r.role) bits.push('<span class="rv-tag">' + esc(r.role) + '</span>');
+    var line = [];
+    if (r.town) line.push(esc(r.town));
+    var when = monthName(r.date);
+    if (when) line.push(when);
+
+    return '<article class="rv-card">' +
+      '<div class="rv-card-head">' +
+        '<div>' +
+          '<h3 class="rv-name">' + esc(r.name) + '</h3>' +
+          (line.length ? '<p class="rv-meta">' + line.join(' &middot; ') + '</p>' : '') +
+        '</div>' +
+        '<div style="text-align:right">' + starRow(Number(r.rating) || 0) +
+        (bits.length ? '<div style="margin-top:.45rem">' + bits.join('') + '</div>' : '') +
+        '</div>' +
+      '</div>' +
+      '<p class="rv-text">' + esc(r.text) + '</p>' +
+      (r.source ? '<p class="rv-source">Originally posted on ' +
+        (r.sourceUrl ? '<a href="' + esc(r.sourceUrl) + '" target="_blank" rel="noopener">' + esc(r.source) + ' &#8599;</a>' : esc(r.source)) +
+        '</p>' : '') +
+      '</article>';
+  }).join('');
+})();
+
+/* Star input — echoes the chosen rating in words for accessibility and confidence. */
+(function () {
+  var out = document.getElementById('stars-value');
+  if (!out) return;
+  var words = { 1: 'Poor', 2: 'Fair', 3: 'Good', 4: 'Great', 5: 'Excellent' };
+  document.querySelectorAll('.stars input').forEach(function (input) {
+    input.addEventListener('change', function () {
+      out.textContent = input.value + ' out of 5 — ' + words[input.value];
+    });
+  });
+})();
+</script>
+</body>
+</html>

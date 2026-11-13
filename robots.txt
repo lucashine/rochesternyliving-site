@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /coming-soon
+Disallow: /neighborhoods/_TEMPLATE-town-page
+
+Sitemap: https://rochesternyliving.com/sitemap.xml

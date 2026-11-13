@@ -1,0 +1,413 @@
+/* Rochester NY Living — shared styles
+   Plain CSS, no framework, no build step. Edit here and every page changes. */
+
+:root {
+  --ink:      #16211c;
+  --ink-soft: #47564f;
+  --ink-faint:#75837c;
+  --paper:    #fbfaf7;
+  --paper-2:  #f2efe9;
+  --line:     #e0dbd2;
+  --forest:   #1f4437;
+  --forest-2: #2d5f4c;
+  --copper:   #b4652a;
+  --white:    #ffffff;
+
+  --wrap: 1120px;
+  --gap: clamp(1.25rem, 3vw, 2rem);
+  --radius: 10px;
+
+  --serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--forest-2); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--copper); }
+
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin: 0 0 0.5em;
+}
+h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); }
+h2 { font-size: clamp(1.6rem, 3.2vw, 2.3rem); }
+h3 { font-size: clamp(1.15rem, 2vw, 1.4rem); }
+
+p { margin: 0 0 1.1em; }
+p.lead { font-size: clamp(1.1rem, 2vw, 1.28rem); color: var(--ink-soft); line-height: 1.55; }
+
+.wrap { width: min(100% - 2.5rem, var(--wrap)); margin-inline: auto; }
+.narrow { width: min(100% - 2.5rem, 720px); margin-inline: auto; }
+
+section { padding: clamp(3rem, 7vw, 5.5rem) 0; }
+section.tight { padding: clamp(2rem, 4vw, 3rem) 0; }
+.bg-alt { background: var(--paper-2); }
+.bg-deep { background: var(--forest); color: #e8f0ec; }
+.bg-deep h1, .bg-deep h2, .bg-deep h3 { color: var(--white); }
+.bg-deep p { color: #c3d5cc; }
+.bg-deep a { color: #ffd9b8; }
+
+.eyebrow {
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--copper);
+  margin-bottom: 0.9rem;
+}
+.bg-deep .eyebrow { color: #e9a86e; }
+
+/* ---------- header ---------- */
+.site-header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(251, 250, 247, 0.93);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; min-height: 74px;
+}
+.brand { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; line-height: 1.1; }
+.brand-text { display: flex; flex-direction: column; }
+/* Logo mark. Decorative — the brand name next to it carries the accessible text. */
+.brand-mark { width: 44px; height: 44px; flex-shrink: 0; }
+@media (max-width: 420px) { .brand-mark { width: 36px; height: 36px; } }
+.brand-name {
+  font-family: var(--serif); font-size: 1.22rem; font-weight: 600;
+  color: var(--ink); letter-spacing: -0.01em;
+}
+/* NY 19 NYCRR 175.25 — brokerage identification, visible in the header, not only the footer.
+   MLS rules would also require this if a feed were ever added. */
+.brand-broker {
+  font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--ink-faint); font-weight: 500; margin-top: 2px;
+}
+
+.nav { display: flex; align-items: center; gap: 1.6rem; }
+.nav a {
+  font-size: 0.93rem; font-weight: 500; color: var(--ink-soft);
+  text-decoration: none; white-space: nowrap;
+}
+.nav a:hover, .nav a[aria-current="page"] { color: var(--forest); }
+/* .nav a is more specific than .btn — restate button colors so the header CTA stays legible */
+.nav a.btn-primary, .nav a.btn-primary:hover { color: var(--white); }
+.nav a.btn-ghost { color: var(--ink); }
+.nav a.btn-ghost:hover { color: var(--forest); }
+.nav a.ext::after { content: " ↗"; font-size: 0.78em; color: var(--ink-faint); }
+
+.nav-toggle {
+  display: none; background: none; border: 1px solid var(--line);
+  border-radius: 8px; padding: 0.45rem 0.6rem; cursor: pointer;
+  font-size: 0.95rem; color: var(--ink);
+}
+
+@media (max-width: 860px) {
+  .nav-toggle { display: block; }
+  .nav {
+    display: none; position: absolute; top: 74px; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--paper); border-bottom: 1px solid var(--line);
+    padding: 0.5rem 0 1rem;
+  }
+  .nav.open { display: flex; }
+  .nav a { padding: 0.75rem 1.25rem; }
+  .nav .btn { margin: 0.6rem 1.25rem 0; text-align: center; }
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-block; padding: 0.78rem 1.5rem;
+  border-radius: 8px; font-size: 0.95rem; font-weight: 600;
+  text-decoration: none; cursor: pointer; border: 1px solid transparent;
+  transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.btn-primary { background: var(--forest); color: var(--white); }
+.btn-primary:hover { background: var(--forest-2); color: var(--white); }
+.btn-ghost { border-color: var(--line); color: var(--ink); background: var(--white); }
+.btn-ghost:hover { border-color: var(--forest); color: var(--forest); }
+.bg-deep .btn-ghost { background: transparent; border-color: #5b8574; color: #e8f0ec; }
+.bg-deep .btn-ghost:hover { border-color: #e8f0ec; color: var(--white); }
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+
+/* ---------- hero ---------- */
+.hero { padding: clamp(3.5rem, 8vw, 6.5rem) 0 clamp(3rem, 6vw, 5rem); }
+.hero h1 { max-width: 16ch; }
+.hero + .tight { padding-top: 0; }
+.hero p.lead { max-width: 52ch; }
+
+/* ---------- grid + cards ---------- */
+.grid { display: grid; gap: var(--gap); }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+.card {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 1.6rem;
+}
+.card h3 { margin-bottom: 0.4rem; }
+.card p:last-child { margin-bottom: 0; }
+.card-link { text-decoration: none; color: inherit; display: block; transition: border-color .15s ease; }
+.card-link:hover { border-color: var(--forest); color: inherit; }
+
+.split { display: grid; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+@media (min-width: 900px) { .split { grid-template-columns: 1.15fr 1fr; } }
+@media (min-width: 900px) { .split.reverse { grid-template-columns: 1fr 1.15fr; } }
+
+/* ---------- forms ---------- */
+.form { display: grid; gap: 1.05rem; }
+.field { display: grid; gap: 0.35rem; }
+.field label { font-size: 0.86rem; font-weight: 600; color: var(--ink-soft); }
+.field .hint { display: block; font-size: 0.8rem; color: var(--ink-faint); font-weight: 400; margin-top: 3px; }
+.field input, .field select, .field textarea {
+  font: inherit; font-size: 0.98rem; color: var(--ink);
+  padding: 0.72rem 0.85rem; border: 1px solid var(--line);
+  border-radius: 8px; background: var(--white); width: 100%;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: 2px solid var(--forest-2); outline-offset: 1px; border-color: var(--forest-2);
+}
+.field textarea { min-height: 120px; resize: vertical; }
+.field-row { display: grid; gap: 1.05rem; }
+@media (min-width: 620px) { .field-row { grid-template-columns: 1fr 1fr; } }
+
+/* honeypot — hidden from people, catches bots */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.form-note { font-size: 0.83rem; color: var(--ink-faint); line-height: 1.5; }
+.form-status { font-size: 0.94rem; padding: 0.85rem 1rem; border-radius: 8px; display: none; }
+.form-status.show { display: block; }
+.form-status.ok { background: #e7f1ec; color: #1f4437; border: 1px solid #b9d5c8; }
+.form-status.err { background: #fbeae4; color: #8a3d16; border: 1px solid #e8c4b0; }
+
+/* ---------- misc ---------- */
+.stat-row { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.stat { border-left: 3px solid var(--copper); padding-left: 1rem; }
+.stat dt { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); font-weight: 600; }
+.stat dd { margin: 0.2rem 0 0; font-family: var(--serif); font-size: 1.55rem; font-weight: 600; }
+
+.needs-data {
+  background: #fff6e8; border: 1px dashed #d9a441; color: #7a5312;
+  padding: 0.15em 0.5em; border-radius: 4px; font-size: 0.85em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.video-grid { display: grid; gap: var(--gap); grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.video-embed { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius); background: var(--paper-2); }
+.video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+.prose h2 { margin-top: 2.4rem; }
+.prose ul { padding-left: 1.2rem; }
+.prose li { margin-bottom: 0.5rem; }
+
+hr.rule { border: 0; border-top: 1px solid var(--line); margin: clamp(2rem,5vw,3.5rem) 0; }
+
+/* ---------- footer ---------- */
+.site-footer { background: var(--forest); color: #b9cdc4; padding: clamp(3rem,6vw,4.5rem) 0 2rem; font-size: 0.9rem; }
+.site-footer a { color: #dce9e3; text-decoration: none; }
+.site-footer a:hover { color: var(--white); text-decoration: underline; }
+.footer-grid { display: grid; gap: 2.5rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.footer-grid h4 { font-family: var(--sans); font-size: 0.76rem; letter-spacing: 0.12em; text-transform: uppercase; color: #86a89a; margin: 0 0 0.9rem; font-weight: 600; }
+.footer-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+
+/* NY 19 NYCRR 175.25 identification block — required on every page.
+   Do not restyle smaller or hide on mobile. */
+.id-block { color: #dce9e3; line-height: 1.7; }
+.id-block strong { color: var(--white); font-weight: 600; }
+
+.fh-notice {
+  margin-top: 2.5rem; padding-top: 1.75rem; border-top: 1px solid #34594a;
+  display: flex; gap: 1rem; align-items: flex-start;
+}
+.fh-notice svg { flex-shrink: 0; margin-top: 2px; }
+.legal { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid #34594a; font-size: 0.82rem; color: #86a89a; }
+.legal p { margin-bottom: 0.6rem; }
+
+
+/* =====================================================================
+   IMAGERY
+   Added 1 Sep 2026. Two kinds of image live on this site:
+
+   1. BRAND ART — the logo mark and the line drawings cropped out of the
+      channel banner (assets/img/art-skyline.png, art-river.png). These
+      are decorative. They always carry alt="" so screen readers skip
+      them, and nothing they say is load-bearing.
+
+   2. PHOTOGRAPHY — real photos of real places, dropped into
+      assets/img/photos/. See assets/img/README.md for the filenames the
+      pages already look for. A slot with no file behind it shows the
+      branded placeholder below rather than a broken image icon, so a
+      missing photo never looks like a bug.
+
+   FAIR HOUSING: a photo is copy. Caption places, never people. Do not
+   caption an image in a way that describes who lives somewhere.
+   ===================================================================== */
+
+/* --- hero with brand art --- */
+.hero-art { position: relative; overflow: hidden; }
+.hero-art .wrap { position: relative; z-index: 1; }
+.hero-art::after {
+  content: ""; position: absolute; right: -40px; bottom: -30px;
+  width: min(38vw, 470px); aspect-ratio: 574 / 430;
+  background: url("img/art-skyline.png") no-repeat right bottom / contain;
+  opacity: 0.22; pointer-events: none;
+}
+.hero-art h1, .hero-art p.lead, .hero-art .btn-row { max-width: 54ch; }
+@media (max-width: 1080px) { .hero-art::after { display: none; } }
+
+/* Narrow heroes (720px of centred copy) have no room for the corner art
+   without it running under the text, so they get a small glyph above the
+   eyebrow instead. Decorative — alt="" on purpose. */
+.hero-glyph .hero-glyph-img {
+  width: 118px; height: auto; opacity: 0.62; margin-bottom: 1.15rem;
+}
+
+/* --- dark band with reversed art --- */
+.bg-deep.deep-art { position: relative; overflow: hidden; }
+.bg-deep.deep-art > * { position: relative; z-index: 1; }
+/* Reuses art-skyline.png and inverts it in CSS rather than shipping a second
+   reversed file. One image, two treatments. */
+.bg-deep.deep-art::before {
+  content: ""; position: absolute; left: -60px; bottom: -40px;
+  width: min(40vw, 480px); aspect-ratio: 574 / 430;
+  background: url("img/art-skyline.png") no-repeat left bottom / contain;
+  filter: invert(1) brightness(2.2);
+  opacity: 0.18; pointer-events: none;
+}
+
+/* --- figures --- */
+figure.shot { margin: 0; }
+figure.shot img { border-radius: var(--radius); border: 1px solid var(--line); width: 100%; }
+figure.shot figcaption {
+  font-size: 0.82rem; color: var(--ink-faint); line-height: 1.5;
+  margin-top: 0.6rem;
+}
+figure.shot figcaption .credit { display: block; color: #9aa6a0; font-size: 0.76rem; }
+
+/* --- photo slot placeholder ---------------------------------------
+   Used where a real photograph belongs but has not been shot yet.
+   It is branded and deliberate, not an empty box. Replace the whole
+   .photo-slot element with a <figure class="shot"> once the photo
+   exists. Never fill one of these with a stock photo of a generic
+   suburb — the site's entire claim is first-hand local knowledge.  */
+.photo-slot {
+  border: 1px dashed var(--line); border-radius: var(--radius);
+  background: var(--paper-2) url("img/logo-mark.png") no-repeat center 42% / 74px 74px;
+  display: grid; align-content: end; justify-items: center;
+  min-height: 260px; padding: 1.25rem; text-align: center;
+}
+.photo-slot span {
+  font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-faint); font-weight: 600;
+}
+.photo-slot.portrait { aspect-ratio: 4 / 5; min-height: 0; }
+.photo-slot.wide { aspect-ratio: 16 / 9; min-height: 0; }
+
+/* --- portrait --- */
+.portrait-frame { position: relative; max-width: 340px; margin-inline: auto; }
+.portrait-frame img { border-radius: var(--radius); width: 100%; }
+.portrait-frame::before {
+  content: ""; position: absolute; inset: 12px -12px -12px 12px;
+  border: 1px solid var(--copper); border-radius: var(--radius);
+  opacity: 0.35; z-index: -1;
+}
+
+/* --- card thumbnails --- */
+.card-thumb { margin: -1.6rem -1.6rem 1.2rem; border-radius: var(--radius) var(--radius) 0 0; overflow: hidden; }
+.card-thumb img, .card-thumb .photo-slot {
+  aspect-ratio: 3 / 2; width: 100%; object-fit: cover;
+  border: 0; border-radius: 0; min-height: 0;
+}
+
+/* --- footer mark --- */
+.footer-mark { width: 38px; height: 38px; margin-bottom: 0.9rem; opacity: 0.95; }
+
+
+/* --- town grid (neighborhoods index), added 12 Nov 2026 --- */
+.town-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+@media (min-width: 900px) { .town-grid { grid-template-columns: repeat(3, 1fr); } }
+.town-card { display: flex; flex-direction: column; }
+.town-card .card-thumb img { background: var(--paper-2); }
+.town-county { font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--copper); font-weight: 600; margin: 0 0 0.35rem; }
+.town-more { margin-top: auto; padding-top: 0.6rem; font-size: 0.9rem; font-weight: 600; color: var(--forest-2); }
+.town-card:hover .town-more { color: var(--copper); }
+figure.town-hero { margin: 0 0 2rem; }
+figure.town-hero img { aspect-ratio: 3 / 2; object-fit: cover; background: var(--paper-2); }
+figure.shot figcaption .credit a { color: inherit; }
+.photo-credits { font-size: 0.82rem; color: var(--ink-faint); }
+.photo-credits summary { cursor: pointer; font-weight: 600; }
+.photo-credits ul { margin: 0.6rem 0; padding-left: 1.1rem; }
+
+/* --- video page, added 12 Nov 2026 --- */
+.video-embed { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; background: #0d1512; }
+.video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.vid-stage { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); align-items: start; }
+@media (min-width: 900px) { .vid-stage { grid-template-columns: minmax(0, 1fr) 320px; } }
+.vid-now { margin: 1.1rem 0 0.25rem; }
+.vid-title { font-size: clamp(1.3rem, 2.4vw, 1.75rem); margin: 0 0 0.4rem; }
+.vid-blurb { color: var(--ink-soft); max-width: 62ch; }
+.vid-list { list-style: none; margin: 0.6rem 0 1.2rem; padding: 0; display: grid; gap: 0.75rem; }
+@media (max-width: 899px) {
+  .vid-list { grid-auto-flow: column; grid-auto-columns: minmax(230px, 70%); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.4rem; }
+  .vid-list li { scroll-snap-align: start; }
+}
+.vid-item { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: 132px 1fr; gap: 0.75rem; align-items: start; width: 100%; padding: 0.5rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); transition: border-color .15s ease; }
+@media (max-width: 899px) { .vid-item { grid-template-columns: 1fr; } }
+.vid-item:hover, .vid-item:focus-visible { border-color: var(--forest); }
+.vid-item:focus-visible { outline: 2px solid var(--forest-2); outline-offset: 2px; }
+.vid-item.is-active { border-color: var(--copper); box-shadow: inset 3px 0 0 var(--copper); }
+.vid-thumb { position: relative; display: block; border-radius: 6px; overflow: hidden; aspect-ratio: 16 / 9; background: var(--paper-2); }
+.vid-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vid-len { position: absolute; right: 5px; bottom: 5px; background: rgba(0,0,0,.78); color: #fff; font-size: 0.72rem; font-weight: 600; padding: 1px 5px; border-radius: 4px; }
+.vid-item-title { font-size: 0.9rem; font-weight: 600; line-height: 1.35; color: var(--ink); }
+.vid-sub { width: 100%; text-align: center; box-sizing: border-box; }
+.btn-yt::before { content: ""; display: inline-block; width: 1.05em; height: 0.75em; margin-right: 0.5em; vertical-align: -0.05em; border-radius: 3px; background: #ff0000 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 9'%3E%3Cpath d='M4.5 2.2v4.6L8.4 4.5z' fill='%23fff'/%3E%3C/svg%3E") center / 70% no-repeat; }
+.vid-all { margin-top: 1.5rem; max-width: 960px; }
+
+/* --- home photo tiles, added 12 Nov 2026 --- */
+.tile-grid { grid-template-columns: 1fr; }
+@media (min-width: 760px) { .tile-grid { grid-template-columns: repeat(3, 1fr); } }
+.photo-tile { position: relative; display: block; overflow: hidden; border-radius: var(--radius);
+  min-height: 380px; color: #fff; text-decoration: none; background: var(--forest); isolation: isolate; }
+.photo-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2;
+  transition: transform .5s ease; }
+.photo-tile::after { content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(22,33,28,0) 20%, rgba(22,33,28,.55) 50%, rgba(22,40,32,.94) 100%); }
+.photo-tile:hover img, .photo-tile:focus-visible img { transform: scale(1.04); }
+.photo-tile:hover, .photo-tile:focus-visible { color: #fff; }
+.photo-tile:focus-visible { outline: 3px solid var(--copper); outline-offset: 3px; }
+.tile-body { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.5rem 1.5rem 1.6rem; display: block; }
+.tile-body h3 { color: #fff; margin: 0 0 .45rem; font-size: 1.45rem; }
+.tile-body p { color: rgba(255,255,255,.9); font-size: .95rem; line-height: 1.5; margin: 0 0 .9rem; }
+.tile-eyebrow { display: block; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
+  font-weight: 600; color: #f0b98a; margin-bottom: .4rem; }
+.tile-go { font-size: .9rem; font-weight: 600; color: #fff; border-bottom: 1px solid rgba(255,255,255,.5); padding-bottom: 1px; }
+.photo-tile:hover .tile-go { border-color: #f0b98a; color: #f0b98a; }
+.tile-credit { position: absolute; top: .6rem; right: .7rem; font-size: .66rem; color: rgba(255,255,255,.75);
+  background: rgba(0,0,0,.35); padding: 1px 6px; border-radius: 4px; }
+.tile-play { position: absolute; top: 30%; left: 50%; width: 58px; height: 40px; margin-left: -29px; border-radius: 10px;
+  background: #ff0000 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 9'%3E%3Cpath d='M4.5 2.2v4.6L8.4 4.5z' fill='%23fff'/%3E%3C/svg%3E") center / 60% no-repeat;
+  box-shadow: 0 4px 14px rgba(0,0,0,.35); opacity: .92; transition: transform .2s ease; }
+.photo-tile:hover .tile-play { transform: scale(1.08); }
+/* The video tile crops a 16:9 thumbnail into a tall card: keep the face, lose the title text. */
+.photo-tile.tile-video img { object-position: 100% center; }
+.photo-tile.tile-video .tile-play { top: 1rem; left: 1rem; margin-left: 0; width: 46px; height: 32px; }
