@@ -41,12 +41,22 @@ window.REVIEWS = [
 
   /* Submitted via the site form 13 Nov 2026, consent given. Passed the four checks. */
   {
+    name:   "Anthony B.",
+    rating: 5,
+    role:   "Buyer & seller",
+    town:   "Greece",
+    date:   "2025-05",
+    text:   "Lucas came highly recommended, and now I know why! From the very first home we looked at, to the day we closed, Lucas was there every step of the way. I highly recommend him."
+  },
+
+  /* Submitted via the site form 13 Nov 2026, consent given. Passed the four checks. */
+  {
     name:   "Nick L.",
     rating: 5,
     role:   "Buyer",
     town:   "Greece",
     date:   "2026-11",
-    text:   "Lucas was a great communicator, on top of things, and quickly responded to any questions or concerns we had. This was a smooth process for us and Lucas made things easy and exciting searching for a home. He took his time with us explaining processes and expectations so we weren’t surprised, which helped prepared for everything that comes with searching and buying a home."
+    text:   "Lucas was a great communicator, on top of things, and quickly responded to any questions or concerns we had. This was a smooth process for us and Lucas made things easy and exciting searching for a home. He took his time with us explaining processes and expectations so we weren’t surprised, which helped prepare for everything that comes with searching and buying a home."
   },
 
   /* Imported 12 Nov 2026 from Lucas's Zillow profile (zillow.com/profile/lucashine), verbatim,
